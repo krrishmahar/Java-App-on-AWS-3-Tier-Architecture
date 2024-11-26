@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -17,6 +17,15 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+
+		<!-- SonarCloud Properties (to be replaced with your details) -->
+
+		<!-- SonarCloud properties -->
+		<sonar.projectKey>krrishmahar_Java-App-on-AWS-3-Tier-Architecture</sonar.projectKey>
+		<sonar.organization>krrishmahar</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.login>a47c7ae128b7a3651ead12b0322abf68239e4493</sonar.login>
+
 	</properties>
 
 	<dependencies>
@@ -24,28 +33,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper -->
+		<!-- Tomcat Jasper for JSP support -->
 		<dependency>
-		    <groupId>org.apache.tomcat</groupId>
-		    <artifactId>tomcat-jasper</artifactId>
-		    <version>9.0.31</version>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jasper</artifactId>
+			<version>9.0.31</version>
 		</dependency>
-
+		<!-- MySQL connector for database connectivity -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-		
-		
-		
-		
+		<!-- Spring Boot starter for Tomcat, provided scope for WAR packaging -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- Spring Boot testing dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -61,18 +67,55 @@
 
 	<build>
 		<plugins>
+			<!-- Spring Boot Maven Plugin to package the application -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+			<!-- SonarCloud Maven Plugin -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
+			</plugin>
+
+			<!-- JFrog Artifactory Maven Plugin -->
+			<plugin>
+				<groupId>org.jfrog.buildinfo</groupId>
+				<artifactId>artifactory-maven-plugin</artifactId>
+				<version>3.6.1</version>
+				<executions>
+					<execution>
+						<id>build-info</id>
+						<goals>
+							<goal>publish</goal>
+						</goals>
+						<configuration>
+							<deployProperties>
+								<gradle>awesome</gradle>
+								<review.team>qa</review.team>
+							</deployProperties>
+							<publisher>
+								<contextUrl>https://acme.jfrog.io</contextUrl>
+								<username>deployer</username>
+								<password>dontellanyone</password>
+								<repoKey>libs-release-local</repoKey>
+								<snapshotRepoKey>libs-snapshot-local</snapshotRepoKey>
+							</publisher>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-<distributionManagement>
-    <repository>
-        <id>central</id>
-        <name>a0nymgefaiwwu-artifactory-primary-0-releases</name>
-        <url>https://edshopdpt8.jfrog.io/artifactory/libs-release-local</url>
-    </repository>
-</distributionManagement> 
 
+
+	<distributionManagement>
+		<snapshotRepository>
+			<id>snapshots</id>
+			<name>a0tbyu3o5v4gn-artifactory-primary-0-snapshots</name>
+			<url>https://trialbt7d32.jfrog.io/artifactory/maven-app-libs-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
