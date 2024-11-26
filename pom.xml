@@ -24,7 +24,6 @@
 		<sonar.projectKey>krrishmahar_Java-App-on-AWS-3-Tier-Architecture</sonar.projectKey>
 		<sonar.organization>krrishmahar</sonar.organization>
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.login>a47c7ae128b7a3651ead12b0322abf68239e4493</sonar.login>
 
 	</properties>
 
